@@ -151,6 +151,7 @@ pd.options.mode.chained_assignment = None
 # print(df.shape)
 
 
+# тепловая карта для наглядности того, что таблица теперь заполнена
 # cols = df_new.columns
 # colours = ['#000099', '#ffff00']
 # plt.figure(figsize=(14,8))
@@ -165,109 +166,144 @@ pd.options.mode.chained_assignment = None
 # б) ПОИСК ВЫБРОСОВ
 # print("АНАЛИЗ ВЫБРОСОВ")
 
+# df = pd.read_csv("data_filled_cols_n_rows.csv")
+# print(df.shape)
+# main_feature = "price_doc"
+
+# if main_feature in df.columns:
+    # print("\nОписательная статистика price_doc")
+    # print(df[main_feature].describe())
+
+    # гистограмма
+    # df[main_feature].hist(bins=100)
+    # plt.title("Гистограмма признака price_doc")
+    # plt.show()
+
+
+    # boxplot
+    # df.boxplot(column=[main_feature])
+    # plt.title("Boxplot признака price_doc")
+    # plt.show()
+
+
+# print(df.loc[df["full_sq"] < 15, "full_sq"])
+# print(df.loc[df["price_doc"] < 1000000, ["price_doc", "full_sq", "build_year"]])
+# print(df.loc[df["price_doc"] > 40000000, ["price_doc", "full_sq", "build_year"]])
+
+
+# Удаление строк, в которых price_doc < 1 000 000
+# mask = df["price_doc"] >= 1000000
 #
+# df_cleaned = df[mask].copy()
 #
-# main_feature = "full_sq"
+# print(f"Было строк: {len(df)}")
+# print(f"Стало строк: {len(df_cleaned)}")
+# print(f"Удалено строк: {len(df) - len(df_cleaned)}")
+# print(df_cleaned.shape)
 #
-# if main_feature in df_new.columns:
-#     print("\nОписательная статистика full_sq")
-#     print(df_new[main_feature].describe())
-#
-#     # гистограмма
-#     df_new[main_feature].hist(bins=100)
-#     plt.title("Гистограмма признака full_sq")
-#     # plt.show()
-#
-#     # boxplot
-#     df_new.boxplot(column=[main_feature])
-#     plt.title("Boxplot признака full_sq")
-#     # plt.show()
-#
-#
-# # print(df_new.loc[df_new["full_sq"] < 10, "full_sq"])
-# # print(df_new.loc[df_new["price_doc"] < 1000000, "price_doc"])
-#
-#
-# indices_to_drop = df_new[df_new["full_sq"] < 10].index
-# df_new = df_new.drop(indices_to_drop)
-# df_new.to_csv("output_new.csv", index=False)
-# # print(df_new.shape)
+# df_after_emissions = df_cleaned.copy()
+# df_after_emissions.to_csv("data_after_emissions.csv", index=False)
+# print(df_after_emissions.shape)
 
 
 
-# # ==========================================================
-# # в) ПОИСК НЕНУЖНЫХ ДАННЫХ
-# # ==========================================================
-# # print("\n==============================")
-# # print("ПОИСК НЕИНФОРМАТИВНЫХ ПРИЗНАКОВ")
-# # print("==============================")
-#
-# num_rows = len(df_new)
+
+
+
+# в) ПОИСК НЕНУЖНЫХ ДАННЫХ
+# print("ПОИСК НЕИНФОРМАТИВНЫХ ПРИЗНАКОВ")
+
+# df = pd.read_csv("data_after_emissions.csv")
+# print(df.shape)
+
+# num_rows = len(df)
 # low_information_cols = []
-# df_new: pd.DataFrame
+# df: pd.DataFrame
 #
-# for col in df_new.columns:
-#     counts = df_new[col].value_counts(dropna=False)
+# for col in df.columns:
+#     counts = df[col].value_counts(dropna=False)
 #
 #     top_pct = (counts / num_rows).iloc[0]
 #     if top_pct > 0.95:
 #         low_information_cols.append(col)
-#         print(col, df_new[col].dtype, " - ", round(top_pct*100,2), "% одинаковых значений")
+#         print(col, df[col].dtype, " - ", round(top_pct*100,2), "% одинаковых значений")
+
+
+
+# удаляем неинформативные признаки
+# df = pd.read_csv("data_after_emissions.csv")
+# print("До удаления:", df.shape)
 #
-# # удаляем неинформативные признаки
-# if len(low_information_cols) > 0:
-#     df_new = df_new.drop(low_information_cols, axis=1)
+# # Удаляем ненужные колонки
+# cols_to_remove = [
+#     'cafe_count_500_price_high',
+#     'mosque_count_500',
+#     'cafe_count_1000_price_high',
+#     'mosque_count_1000',
+#     'mosque_count_1500'
+# ]
 #
-# # ------------------------------
-# # поиск дубликатов
-# # ------------------------------
+# df = df.drop(columns=cols_to_remove)
+# print("После удаления:", df.shape)
 #
+# df.to_csv("data_deleted_duplicates.csv", index=False)
+# print(df.shape)
+
+
+
+# ------------------------------
+# поиск дубликатов
+# ------------------------------
+
 # print("\nПроверка дубликатов")
 # print("Размер до удаления:", df.shape)
 # df = df.drop_duplicates()
 # print("Размер после удаления:", df.shape)
 
 
-# # ==========================================================
-# # г) НЕСОГЛАСОВАННЫЕ ДАННЫЕ
-# # ==========================================================
+# key = ['timestamp', 'full_sq', 'life_sq', 'floor', 'build_year', 'num_room', 'price_doc']
+# df_dedupped2 = df.drop_duplicates(subset=key)
 #
-# print("\n==============================")
+# print(df.shape)
+# print(df_dedupped2.shape)
+
+
+
+
+
+# г) НЕСОГЛАСОВАННЫЕ ДАННЫЕ
 # print("ПРОВЕРКА НЕСОГЛАСОВАННЫХ ДАННЫХ")
-# print("==============================")
+
+# df = pd.read_csv("data_deleted_duplicates.csv")
+# print(df.shape)
 #
-# # ------------------------------
-# # приведение текста к нижнему регистру
-# # ------------------------------
-#
-# if "sub_area" in df.columns:
-#
-#     df["sub_area"] = df["sub_area"].str.lower()
-#
-#     print("Колонка sub_area приведена к нижнему регистру")
+# str_columns = df.select_dtypes(include=['object']).columns.tolist()
+# print(f"Всего найдено: {len(str_columns)} столбцов\n")
+# for i, col in enumerate(str_columns, 1):
+#     print(f"{i:2d}. {col}")
+# print(str_columns)
 #
 #
-# # ------------------------------
-# # преобразование даты
-# # ------------------------------
+# for col in str_columns:
+#     df[col] = df[col].astype(str).str.lower()
+# df.to_csv("data_after_lowercase.csv", index=False)
+
+
+
+# df = pd.read_csv("data_after_lowercase.csv")
+# print(df.shape)
 #
-# if "timestamp" in df.columns:
+# if 'timestamp' in df.columns:
 #
-#     df["timestamp"] = pd.to_datetime(df["timestamp"])
+#     # Преобразуем в datetime
+#     df['timestamp'] = pd.to_datetime(df['timestamp'], format='%Y-%m-%d')
 #
-#     df["year"] = df["timestamp"].dt.year
-#     df["month"] = df["timestamp"].dt.month
+#     # Создаем новые столбцы
+#     df['year'] = df['timestamp'].dt.year
+#     df['month'] = df['timestamp'].dt.month
+#     df['day'] = df['timestamp'].dt.day
+#     df['weekday'] = df['timestamp'].dt.weekday
 #
-#     print("Дата преобразована в формат datetime")
+# df.to_csv("data_final.csv", index=False)
 #
-#
-# # ==========================================================
-# # ИТОГ
-# # ==========================================================
-#
-# print("\n==============================")
-# print("ОЧИСТКА ДАННЫХ ЗАВЕРШЕНА")
-# print("==============================")
-#
-# print("Финальный размер датасета:")
 # print(df.shape)
