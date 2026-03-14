@@ -1,0 +1,26 @@
+Месяц строковый	Первые 3 буквы	Номер месяца
+ЯНВАРЬ	ЯНВ	01
+ФЕВРАЛЬ	ФЕВ	02
+МАРТ	МАР	03
+АПРЕЛЬ	АПР	04
+МАЙ	МАЙ	05
+ИЮНЬ	ИЮН	06
+ИЮЛЬ	ИЮЛ	07
+АВГУСТ	АВГ	08
+СЕНТЯБРЬ	СЕН	09
+ОКТЯБРЬ	ОКТ	10
+НОЯБРЬ	НОЯ	11
+ДЕКАБРЬ	ДЕК	12
+JANUARY	JAN	01
+FEBRUARY	FEB	02
+MARCH	MAR	03
+APRIL	APR	04
+MAY	MAY	05
+JUNE	JUN	06
+JULY	JUL	07
+AUGUST	AUG	08
+SEPTEMBER	SEP	09
+OCTOBER	OCT	10
+NOVEMBER	NOV	11
+DECEMBER	DEC	12
+МАЯ	МАЯ	05
