@@ -93,13 +93,47 @@ df_long = df.melt(
 
 # Анализ среднего экспорта по странам и месяцам
 
-cube3 = pd.pivot_table(
-    df_long,
-    values="Объем",
-    index=["Страны", "Месяц"],
-    columns=["Минеральные удобрения"],
-    aggfunc="mean"
-)
-print(cube3)
-cube3.to_csv("cube3.csv", sep=';', decimal=',')
+# cube3 = pd.pivot_table(
+#     df_long,
+#     values="Объем",
+#     index=["Страны", "Месяц"],
+#     columns=["Минеральные удобрения"],
+#     aggfunc="mean"
+# )
+# print(cube3)
+# cube3.to_csv("cube3.csv", sep=';', decimal=',')
+
+
+# Визуализация
+# months_order = [
+#     "январь","февраль","март","апрель","май","июнь",
+#     "июль","август","сентябрь","октябрь","ноябрь","декабрь"
+# ]
+#
+# # Дальнее зарубежье
+# df_far = cube3.loc["Дальнего зарубежья"]
+# df_far = df_far.reindex(months_order)
+#
+# # СНГ
+# df_cis = cube3.loc["СНГ (без России)"]
+# df_cis = df_cis.reindex(months_order)
+#
+# # График для Дальнего зарубежья
+# df_far.plot(kind='bar', figsize=(12,6))
+# plt.title("Экспорт удобрений по месяцам (Дальнее зарубежье)")
+# plt.ylabel("Средний объем")
+# plt.xticks(rotation=45)
+# plt.legend(title="Тип удобрения")
+# plt.tight_layout()
+# plt.show()
+#
+# # График для СНГ
+# df_cis.plot(kind='bar', figsize=(12,6))
+# plt.title("Экспорт удобрений по месяцам (СНГ без России)")
+# plt.ylabel("Средний объем")
+# plt.xticks(rotation=45)
+# plt.legend(title="Тип удобрения")
+# plt.tight_layout()
+# plt.show()
+
 
