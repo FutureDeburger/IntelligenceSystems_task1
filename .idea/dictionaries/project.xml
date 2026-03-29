@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="project">
     <words>
+      <w>aggfunc</w>
       <w>dropna</w>
       <w>fillna</w>
       <w>iloc</w>

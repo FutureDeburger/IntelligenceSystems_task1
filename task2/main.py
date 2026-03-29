@@ -13,6 +13,7 @@ df_long = df.melt(
 # print(df_long)
 
 
+
 # Зависимость суммарного объёма по странам и типам удобрений
 
 # cube1 = pd.pivot_table(
@@ -136,4 +137,38 @@ df_long = df.melt(
 # plt.tight_layout()
 # plt.show()
 
+
+# Куб экспорта по типам удобрений по годам (в процентах)
+
+# cube4 = pd.pivot_table(
+#     df_long,
+#     values="Объем",
+#     index=["Год"],
+#     columns=["Минеральные удобрения"],
+#     aggfunc="sum"
+# )
+#
+# cube4_percent = (cube4.div(cube4.sum(axis=1), axis=0) * 100).round(2)
+# print(cube4_percent)
+# cube4_percent.to_csv("cube4.csv", sep=';', decimal=',')
+#
+#
+# # Визуализация
+# cube4_percent.plot(figsize=(10,6), marker='o')
+# plt.title("Структура экспорта минеральных удобрений по годам")
+# plt.ylabel("Доля (%)")
+# plt.xlabel("Год")
+# plt.xticks(cube4_percent.index)
+# plt.legend(title="Тип удобрения")
+# plt.grid(True)
+# # plt.show()
+#
+#
+# cube4_percent.plot(kind='area', stacked=True, figsize=(10,6))
+# plt.title("Изменение структуры экспорта удобрений")
+# plt.ylabel("Доля (%)")
+# plt.xlabel("Год")
+# plt.xticks(cube4_percent.index)
+# plt.legend(title="Тип удобрения")
+# # plt.show()
 
