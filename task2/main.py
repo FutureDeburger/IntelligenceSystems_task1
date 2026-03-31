@@ -23,7 +23,7 @@ df_long = df.melt(
 #     columns=["Минеральные удобрения"],
 #     aggfunc="sum"
 # )
-#
+
 # # cube1.to_csv('cube1.csv', sep=';', decimal=',')
 # # print(f"{cube1}\n")
 # cube_percent = cube1.div(cube1.sum(axis=1), axis=0) * 100
@@ -147,7 +147,7 @@ df_long = df.melt(
 #     columns=["Минеральные удобрения"],
 #     aggfunc="sum"
 # )
-#
+
 # cube4_percent = (cube4.div(cube4.sum(axis=1), axis=0) * 100).round(2)
 # print(cube4_percent)
 # cube4_percent.to_csv("cube4.csv", sep=';', decimal=',')
