@@ -13,7 +13,6 @@ df_long = df.melt(
 # print(df_long)
 
 
-
 # Зависимость суммарного объёма по странам и типам удобрений
 
 # cube1 = pd.pivot_table(
